@@ -67,9 +67,10 @@ def getpeoples():
 def getPeopleId(position):
     try:
        
-        peopleId =  People.query.filter_by(People[position])
+        peopleId =  People.query.filter_by(id=position).first()
+        #peopleId= db.get(People,position)
         
-        return jsonify(people.serialize()), 200
+        return jsonify(peopleId.serialize()), 200
 
     except Exception:
         return jsonify({"msg": "Ha ocurrido un error"}) , 500
@@ -87,11 +88,29 @@ def getPlanets():
         return jsonify({"msg": "Ha ocurrido un error"}) , 500
     
        
+@app.route('/Favoritos', methods=['GET'])
+def getFavoritos():
+   # try:
+    favoritos = Favoritos.query.all()
+    toReturnFavoritos = [favoritos.serialize() for favoritos in favoritos]
+    return jsonify(toReturnFavoritos), 200
 
+    # except Exception:
+        # return jsonify({"msg": "Ha ocurrido un error"}) , 500
+    
+       
+@app.route('/Favoritos/<int:position>', methods=['GET'])
+def getFavoritosIdUser(position):
+    try:
+        favoritoIduser =  Favoritos.query.filter_by(usuario_id=position).first()
+        #peopleId= db.get(People,position)
+        
+        return jsonify(favoritoIduser.serialize()), 200
 
-
-
-
+    except Exception:
+        return jsonify({"msg": "Ha ocurrido un error"}) , 500
+    
+       
 
 
 
