@@ -32,14 +32,14 @@ class Favoritos(db.Model):
 
 
     def __repr__(self):
-        return '<Favoritos %r>' % self.favoritosname
+        return '<Favoritos %r>' % self.usuario_id
     
 
     def serialize(self):
         return {
             "id": self.id,
             "usuario id": self.usuario_id,
-            "usuario" : self.usuario
+            "usuario" : self.usuario.serialize()
         }
 
 
